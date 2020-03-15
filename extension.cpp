@@ -85,12 +85,12 @@ uint64_t __cdecl CookieFIX(intptr_t pServer, CUtlVector<NetMsg_SplitPlayerConnec
 	uint64_t* xSession = *reinterpret_cast<uint64_t **>(pServer + 0x2F4);
 #endif
 	
-	if(*m_nReservationCookie == 0) //When there no players
+	if(xSession == nullptr) //xSession will be nullptr if server is not authorized
 	{
-		*m_nReservationCookie = *xSession;
+		return cl_session;
 	}
 	
-	if(cl_session != *m_nReservationCookie) //Client has curve session
+	if(cl_session != *xSession) //Client has curve session
 	{
 		for (int i = 0; i < pSplitPlayerConnectVector.Count(); i++)
 		{
@@ -106,19 +106,26 @@ uint64_t __cdecl CookieFIX(intptr_t pServer, CUtlVector<NetMsg_SplitPlayerConnec
 					
 					if (cvar.has_name() && cvar.name() == "cl_session")
 					{
+						uint64_t sv_session = *xSession;
+						
+						if(*m_nReservationCookie == 0) //When server is empty
+						{
+							*m_nReservationCookie = sv_session;
+						}
+						
 						char sBuf[64];
-						snprintf(sBuf, sizeof(sBuf), "$%llx", *m_nReservationCookie);
+						snprintf(sBuf, sizeof(sBuf), "$%llx", sv_session);
 						
 						cvar.set_value(sBuf);
 						
-						return *m_nReservationCookie;
+						return sv_session;
 					}
 				}
 			}
 		}
 	}
 	
-	return *m_nReservationCookie;
+	return cl_session;
 }
 
 __declspec(naked) void CallCookieFIX()
