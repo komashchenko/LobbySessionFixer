@@ -40,7 +40,7 @@
 /* Basic information exposed publicly */
 #define SMEXT_CONF_NAME			"Lobby Session Fixer"
 #define SMEXT_CONF_DESCRIPTION	"Fixes error when player is having an invalid session"
-#define SMEXT_CONF_VERSION		"1.0.1"
+#define SMEXT_CONF_VERSION		"1.0.2"
 #define SMEXT_CONF_AUTHOR		"Phoenix (˙·٠●Феникс●٠·˙)"
 #define SMEXT_CONF_URL			"https://zizt.ru/ | https://hlmod.ru"
 #define SMEXT_CONF_LOGTAG		"LSF"

@@ -136,7 +136,7 @@ __declspec(naked) void CallCookieFIX()
 	__asm push ecx
 	__asm push edi //CBaseServer
 #else
-	__asm push dword ptr [ebp-10D4h] //CUtlVector<NetMsg_SplitPlayerConnect*>
+	__asm push dword ptr [ebp-10E4h] //CUtlVector<NetMsg_SplitPlayerConnect*>
 	__asm push dword ptr [ebp+0x8] //CBaseServer
 #endif
 	__asm call CookieFIX
@@ -173,7 +173,7 @@ bool LSF::SDK_OnLoad(char *error, size_t maxlength, bool late)
 #if defined(WIN32)
 	intptr_t pPatch = reinterpret_cast<intptr_t>(addr) + 0x80B;
 #else
-	intptr_t pPatch = reinterpret_cast<intptr_t>(addr) + 0xDC3;
+	intptr_t pPatch = reinterpret_cast<intptr_t>(addr) + 0xDD3;
 #endif
 	
 	if(*(uint8_t*)pPatch != 0xE8)
